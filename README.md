@@ -1,16 +1,47 @@
-# React + Vite
+# Portfólio Pessoal
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este é meu portfólio pessoal onde compartilho minha jornada como desenvolvedor, experiências profissionais, projetos e habilidades técnicas. O projeto foi desenvolvido com foco em design moderno, responsividade e performance.
 
-Currently, two official plugins are available:
+## Tecnologias Utilizadas
+- **React.js** - Biblioteca JavaScript para construção de interfaces
+- **Tailwind CSS** - Framework CSS utilitário
+- **JavaScript (ES6+)** - Linguagem de programação
+- **Lucide React** - Biblioteca de ícones
+- **Git & GitHub** - Controle de versão
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+[![My Skills](https://skillicons.dev/icons?i=react,tailwind,js,vite,git)](https://skillicons.dev)
 
-## React Compiler
+## Instalação e Uso
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Pré-requisitos
 
-## Expanding the ESLint configuration
+Antes de começar, você precisa ter instalado:
+- [Node.js](https://nodejs.org/) (versão 16 ou superior)
+- [Git](https://git-scm.com/)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Passo a passo
+
+1. **Clone o repositório**
+```bash
+git clone https://github.com/doneres/doneres.github.io.git
+```
+
+2. **Entre na pasta do projeto**
+```bash
+cd doneres.github.io
+```
+
+3. **Instale as dependências**
+```bash
+npm install
+```
+
+4. **Execute o projeto em modo de desenvolvimento**
+```bash
+npm run dev
+```
+
+5. **Acesse no navegador**
+```
+http://localhost:5173
+```
