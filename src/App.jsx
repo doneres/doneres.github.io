@@ -1,16 +1,13 @@
+import { Outlet } from "react-router"
 import Navbar from "./components/navbar"
-import Hero from "./components/hero"
-import './app.module.css'
+import Footer from "./components/footer"
 
-const App = () => {
-
-  return (
+export default function App () {
+  return(
     <>
       <Navbar/>
-      <Hero/>
-
+      <Outlet />
+      <Footer/>
     </>
   )
 }
-
-export default App
