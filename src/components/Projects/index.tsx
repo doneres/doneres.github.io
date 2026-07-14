@@ -1,3 +1,9 @@
+import { motion } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
+import Reveal from "../shared/Reveal";
+import TiltCard from "../shared/TiltCard";
+import { GithubIcon } from "../shared/BrandIcons";
+
 interface Project {
   name: string;
   description: string;
@@ -10,20 +16,11 @@ interface Project {
 
 const projects: Project[] = [
   {
-    name: "GreenFlare",
-    description: "Site desenvolvido em HTML com deploy via GitHub Pages.",
-    longDescription:
-      "Projeto frontend construído do zero em HTML puro. Foi um dos primeiros projetos públicos, marcando o início da transição de carreira para desenvolvimento.",
-    tags: ["HTML", "CSS", "GitHub Pages"],
-    github: "https://github.com/doneres/GreenFlare",
-    highlight: true,
-  },
-  {
     name: "Sistema_Livraria",
     description:
       "Sistema de gerenciamento de empréstimos de livros em biblioteca.",
     longDescription:
-      "Desafio proposto pela Rocketseat. Sistema desenvolvido em Java com foco em listagem de livros disponíveis e funcionalidade de empréstimo, aplicando conceitos de orientação a objetos.",
+      "Desafio proposto pela Rocketseat. Desenvolvido em Java, com listagem de livros disponíveis e fluxo de empréstimo, aplicando conceitos sólidos de orientação a objetos.",
     tags: ["Java", "OOP", "Rocketseat"],
     github: "https://github.com/doneres/Sistema_Livraria",
     highlight: true,
@@ -32,10 +29,19 @@ const projects: Project[] = [
     name: "doneres.github.io",
     description: "Este portfólio — construído do zero com React e TypeScript.",
     longDescription:
-      "Portfólio pessoal reconstruído do zero com foco em identidade visual única, estilo retro-tech e performance. Deploy automático via GitHub Actions.",
-    tags: ["React", "TypeScript", "Tailwind", "Vite"],
+      "Portfólio pessoal, redesenhado com identidade visual própria, animações de scroll e foco em performance. Deploy automático via GitHub Actions.",
+    tags: ["React", "TypeScript", "Tailwind", "Framer Motion"],
     github: "https://github.com/doneres/doneres.github.io",
     live: "https://doneres.github.io",
+    highlight: true,
+  },
+  {
+    name: "GreenFlare",
+    description: "Site desenvolvido em HTML com deploy via GitHub Pages.",
+    longDescription:
+      "Projeto frontend construído do zero em HTML puro — um dos primeiros projetos públicos, marcando o início da transição de carreira para desenvolvimento.",
+    tags: ["HTML", "CSS", "GitHub Pages"],
+    github: "https://github.com/doneres/GreenFlare",
     highlight: true,
   },
   {
@@ -64,18 +70,25 @@ function ProjectCard({
   compact?: boolean;
 }) {
   return (
-    <div
-      className={`group relative bg-surface border border-border hover:-translate-y-1 hover:border-green/30 transition-all duration-300 overflow-hidden ${
+    <TiltCard
+      className={`group relative glass rounded-2xl overflow-hidden transition-colors duration-300 hover:border-navy-light/40 ${
         compact ? "p-6" : "p-8"
       }`}
     >
-      {/* Barra lateral verde no hover */}
-      <div className="absolute top-0 left-0 w-[3px] h-full bg-green scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-top" />
+      {/* Glow no hover */}
+      <div
+        className="absolute -inset-px opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none -z-10 rounded-2xl"
+        style={{
+          background:
+            "linear-gradient(135deg, rgba(52,255,179,0.12), rgba(61,110,165,0.18))",
+        }}
+      />
 
-      {/* Header */}
-      <div className="flex justify-between items-start mb-3">
+      <div className="flex justify-between items-start mb-4">
         <span
-          className={`font-mono font-medium text-text-principal ${compact ? "text-sm" : "text-base"}`}
+          className={`font-display font-medium text-text-principal ${
+            compact ? "text-base" : "text-lg"
+          }`}
         >
           {project.name}
         </span>
@@ -85,9 +98,10 @@ function ProjectCard({
               href={project.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-mono text-xs text-text-muted border border-border px-2 py-1 hover:text-cyan hover:border-cyan transition-all duration-200"
+              aria-label={`código de ${project.name} no GitHub`}
+              className="text-text-muted p-2 rounded-full hover:text-navy-light hover:bg-white/5 transition-all duration-200"
             >
-              github
+              <GithubIcon size={16} />
             </a>
           )}
           {project.live && (
@@ -95,38 +109,36 @@ function ProjectCard({
               href={project.live}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-mono text-xs text-text-muted border border-border px-2 py-1 hover:text-cyan hover:border-cyan transition-all duration-200"
+              aria-label={`ver ${project.name} online`}
+              className="text-text-muted p-2 rounded-full hover:text-navy-light hover:bg-white/5 transition-all duration-200"
             >
-              live
+              <ArrowUpRight size={16} />
             </a>
           )}
         </div>
       </div>
 
-      {/* Descrição curta */}
-      <p className="text-text-muted text-xs font-light leading-relaxed mb-2">
+      <p className="text-text-muted text-sm font-light leading-relaxed mb-2">
         {project.description}
       </p>
 
-      {/* Descrição longa — só em cards normais */}
       {!compact && (
         <p className="text-text-muted text-sm font-light leading-relaxed mb-6 opacity-70">
           {project.longDescription}
         </p>
       )}
 
-      {/* Tags */}
       <div className={`flex flex-wrap gap-2 ${compact ? "mt-4" : ""}`}>
         {project.tags.map((tag) => (
           <span
             key={tag}
-            className="font-mono text-xs text-amber-retro border border-amber-retro/30 px-2 py-1"
+            className="font-mono text-xs text-navy-light border border-navy-light/30 rounded-full px-3 py-1"
           >
             {tag}
           </span>
         ))}
       </div>
-    </div>
+    </TiltCard>
   );
 }
 
@@ -135,35 +147,53 @@ export default function Projects() {
   const others = projects.filter((p) => !p.highlight);
 
   return (
-    <section id="projetos" className="py-28 px-16 max-w-6xl mx-auto">
-      <div className="flex items-center gap-3 font-mono text-xs text-green tracking-widest uppercase mb-3">
-        <span className="text-border">03</span>
-        projetos
-      </div>
-      <h2 className="font-mono font-bold text-4xl tracking-tight mb-16">
-        o que construí
-      </h2>
+    <section
+      id="projetos"
+      className="relative py-32 px-6 md:px-16 max-w-6xl mx-auto"
+    >
+      <Reveal>
+        <div className="flex items-center gap-3 font-mono text-xs text-navy-light tracking-widest uppercase mb-4">
+          <span className="text-text-muted">04</span>
+          projetos
+        </div>
+        <h2 className="font-display font-semibold text-4xl md:text-5xl tracking-tight mb-16">
+          o que construí
+        </h2>
+      </Reveal>
 
-      {/* Projetos em destaque — grid de 3 */}
-      <div className="grid grid-cols-3 gap-6 mb-6">
-        {highlighted.map((project) => (
-          <ProjectCard key={project.name} project={project} />
+      <div className="grid md:grid-cols-3 gap-6 mb-6">
+        {highlighted.map((project, i) => (
+          <motion.div
+            key={project.name}
+            initial={{ opacity: 0, y: 32 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <ProjectCard project={project} />
+          </motion.div>
         ))}
       </div>
 
-      {/* Separador */}
-      <div className="flex items-center gap-4 my-10">
+      <Reveal className="flex items-center gap-4 my-10">
         <div className="flex-1 h-px bg-border" />
         <span className="font-mono text-xs text-text-muted uppercase tracking-widest">
           outros repositórios
         </span>
         <div className="flex-1 h-px bg-border" />
-      </div>
+      </Reveal>
 
-      {/* Outros — grid de 2 */}
-      <div className="grid grid-cols-2 gap-4">
-        {others.map((project) => (
-          <ProjectCard key={project.name} project={project} compact />
+      <div className="grid md:grid-cols-2 gap-4">
+        {others.map((project, i) => (
+          <motion.div
+            key={project.name}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.5, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <ProjectCard project={project} compact />
+          </motion.div>
         ))}
       </div>
     </section>

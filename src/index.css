@@ -1,32 +1,110 @@
 @import "tailwindcss";
 
 @theme {
-  --color-deep-bg: #0a0a0f;
-  --color-surface: #12121a;
-  --color-card: #1c1c28;
-  --color-light-bg: #f5f5f0;
-  --color-light-surface: #eeeee8;
-  --color-green: #00ff87;
-  --color-cyan: #00d4ff;
-  --color-electric-purple: #7c3aed;
-  --color-amber-retro: #f59e0b;
-  --color-text-principal: #e2e8f0;
-  --color-text-muted: #a0aec0;
-  --color-border: #2d3748;
+  --color-deep-bg: #06060c;
+  --color-surface: #0d0d16;
+  --color-card: #12121e;
+  --color-glass: rgba(255, 255, 255, 0.04);
+  --color-glass-border: rgba(255, 255, 255, 0.09);
 
+  --color-green: #34ffb3;
+  --color-navy: #12294d;
+  --color-navy-light: #3d6ea5;
+
+  --color-text-principal: #f1f5f9;
+  --color-text-muted: #8b93a7;
+  --color-border: #23232f;
+
+  --font-display: "Space Grotesk", "DM Sans", sans-serif;
+  --font-sans: "Inter", "DM Sans", sans-serif;
   --font-mono: "JetBrains Mono", monospace;
-  --font-sans: "DM Sans", sans-serif;
+}
+
+* {
+  scrollbar-color: var(--color-border) transparent;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background-color: var(--color-deep-bg);
   color: var(--color-text-principal);
   font-family: var(--font-sans);
-  cursor: crosshair;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--color-navy-light);
+  color: white;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-green);
+}
+
+/* Glassmorphism surface — use for larger panels only (blur is expensive per-layer) */
+.glass {
+  background: var(--color-glass);
+  border: 1px solid var(--color-glass-border);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+/* Flat glass-like surface for small/repeated elements (chips, tags) — no backdrop-filter cost */
+.glass-flat {
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid var(--color-glass-border);
+}
+
+/* Gradient text */
+.text-gradient {
+  background: linear-gradient(
+    100deg,
+    var(--color-green) 0%,
+    var(--color-navy-light) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 @keyframes blink {
   50% {
     opacity: 0;
+  }
+}
+
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(3%, -4%) scale(1.05);
+  }
+  66% {
+    transform: translate(-3%, 3%) scale(0.97);
+  }
+}
+
+@keyframes float-slower {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-4%, 4%) scale(1.08);
   }
 }
